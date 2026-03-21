@@ -32,6 +32,10 @@ yarn-error.*
 
 # local env files
 .env*.local
+.env
+.npmrc
+android/gradle.properties
+android/local.properties
 
 # typescript
 *.tsbuildinfo
@@ -39,3 +43,4 @@ yarn-error.*
 # generated native folders
 /ios
 /android
+

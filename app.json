@@ -20,10 +20,20 @@
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
-      }
+      },
+      
+      "package": "com.anonymous.SaudeCheck"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+      "@rnmapbox/maps", 
+        {
+          "RNMapboxMapsDownloadToken": "EXPO_PUBLIC_MAPBOX_TOKEN"
+        }
+      ]
+    ]
   }
 }
