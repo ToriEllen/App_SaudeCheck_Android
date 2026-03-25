@@ -13,8 +13,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.SaudeCheck",
-      "googleServicesFile": "./GoogleService-Info.plist"
+      "bundleIdentifier": "com.anonymous.SaudeCheck"
     },
     "android": {
       "adaptiveIcon": {
@@ -23,8 +22,7 @@
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
-      "package": "com.anonymous.SaudeCheck",
-      "googleServicesFile": "./google-services.json"
+      "package": "com.anonymous.SaudeCheck"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -33,19 +31,7 @@
       [
         "@rnmapbox/maps",
         {
-          "RNMapboxMapsDownloadToken": "RNMAPBOX_MAPS_DOWNLOAD_TOKEN"
-        }
-      ],
-      "@react-native-firebase/app",
-      "@react-native-firebase/auth",
-      [
-        "expo-build-properties",
-        {
-          "android": {
-            "minSdkVersion": 24,
-            "compileSdkVersion": 36,
-            "targetSdkVersion": 36
-          }
+          "RNMapboxMapsDownloadToken": "EXPO_PUBLIC_MAPBOX_TOKEN"
         }
       ]
     ]
