@@ -22,6 +22,21 @@ O projeto usa dois tokens do Mapbox com funções diferentes:
 
 > Solicite os tokens ao responsável pelo mapa.
 
+# 🔐 Configuração de Chaves Secretas
+
+## Arquivos necessários (NÃO estão no repositório)
+
+### 1. `.env` (na raiz do projeto)
+Crie o arquivo `.env` com base no `.env_Example`:
+
+### 2. `google-services.json` (na raiz do projeto)
+Baixe do Firebase Console:
+- Acesse https://console.firebase.google.com
+- Projeto SaudeCheck → Configurações → Google Services
+- Baixe o `google-services.json` e coloque na raiz do projeto
+
+
+
 ---
 
 ## Configuração inicial
