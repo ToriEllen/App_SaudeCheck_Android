@@ -1,6 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { Ionicons } from '@expo/vector-icons';
 
 import InicioScreen from '../screens/InicioScreen'
 import LoginScreen from '../screens/LoginScreen'
@@ -16,9 +17,34 @@ const Tab = createBottomTabNavigator()
 
 function TabNavigator() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+    screenOptions={({ route }) => ({
+    tabBarStyle: {
+      backgroundColor: "#1B6B4A",
+      height: 60,
+      borderTopWidth: 0,
+      elevation: 10,
+    },
+    tabBarActiveTintColor: "#fff",
+    tabBarInactiveTintColor: "#93d4b5",
+
+    tabBarIcon: ({ color, size }) => {
+      let iconName;
+
+      if (route.name === "Home") {
+        iconName = "home";
+      } else if (route.name === "Mapa") {
+        iconName = "map";
+      } else if (route.name === "Avaliações") {
+        iconName = "star";
+      }
+
+      return <Ionicons name={iconName} size={size} color={color} />;
+    },
+  })}
+    >
       <Tab.Screen name="Home"  component={HomeScreen} />
-      <Tab.Screen name="Mapa" component={MapScreen} />
+      <Tab.Screen name="Mapa" component={MapScreen} options={{ headerShown: false }} />
       <Tab.Screen name="Avaliações" component={MinhasAvaliacoesScreen} />
     </Tab.Navigator>
   )
