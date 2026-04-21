@@ -18,11 +18,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });*/
-
+import { AvaliacoesProvider } from './src/services/AvaliacoesContext'
 import AppNavigator from './src/navigation/AppNavigator'
 
 export default function App() {
-  return <AppNavigator />
+  return (
+    <AvaliacoesProvider>
+      <AppNavigator />
+    </AvaliacoesProvider>
+  )
 }
 /*
 para ativar o kvm
