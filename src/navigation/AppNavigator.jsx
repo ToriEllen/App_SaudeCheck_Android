@@ -11,6 +11,7 @@ import MapScreen from '../screens/MapScreen'
 import MinhasAvaliacoesScreen from '../screens/MinhasAvaliacoesScreen'
 import NovaAvaliacaoScreen from '../screens/NovaAvaliacaoScreen'
 import PerfilScreen from '../screens/PerfilScreen'
+import UnidadesScreen from '../screens/UnidadesScreen';
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -43,7 +44,7 @@ function TabNavigator() {
     },
   })}
     >
-      <Tab.Screen name="Home"  component={HomeScreen} />
+      <Tab.Screen name="Home"  component={HomeScreen} options={{ headerShown: false }}  />
       <Tab.Screen name="Mapa" component={MapScreen} options={{ headerShown: false }} />
       <Tab.Screen name="Avaliações" component={MinhasAvaliacoesScreen} />
     </Tab.Navigator>
@@ -55,11 +56,12 @@ export default function AppNavigator() {
 
 <Stack.Navigator>
   <Stack.Screen name="Inicio" component={InicioScreen} options={{ headerShown: false }} />
-  <Stack.Screen name="Login" component={LoginScreen} />
-  <Stack.Screen name="Cadastro" component={CadastroScreen} />
+  <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+  <Stack.Screen name="Cadastro" component={CadastroScreen} options={{ headerShown: false }} />
   <Stack.Screen name="MainTabs" component={TabNavigator} options={{ headerShown: false }} />
-  <Stack.Screen name="NovaAvaliacao" component={NovaAvaliacaoScreen} />
-  <Stack.Screen name="Perfil" component={PerfilScreen} />
+  <Stack.Screen name="NovaAvaliacao" component={NovaAvaliacaoScreen} options={{ headerShown: false }} />
+  <Stack.Screen name="Perfil" component={PerfilScreen} options={{ headerShown: false }} />
+  <Stack.Screen name="Unidades" component={UnidadesScreen} options={{ headerShown: false }} />
 </Stack.Navigator>
 
     </NavigationContainer>

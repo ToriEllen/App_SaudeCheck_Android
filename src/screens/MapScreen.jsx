@@ -102,10 +102,24 @@ const pontosGeoJSON ={
 
 Mapbox.setAccessToken(process.env.EXPO_PUBLIC_MAPBOX_TOKEN);
 
-export default function MapScreen() {
+export default function MapScreen({route}) {
  const [visible, setVisible] = useState(false);
  const transformY = useRef(new Animated.Value(Screenheight)).current;
  const cameraRef = useRef(null);
+
+  useEffect(() => {
+    if (route?.params?.unidade) {
+      const { unidade } = route.params
+      setTimeout(() => {
+        cameraRef.current?.setCamera({
+          centerCoordinate: [unidade.lon, unidade.lat],
+          zoomLevel: 15,
+          pitch: 45,
+          animationDuration: 1000,
+        })
+      }, 500)
+    }
+  }, [route?.params])
   
  const copiarEndereço = async (endereco) => {
   await Clipboard.setStringAsync(endereco);
