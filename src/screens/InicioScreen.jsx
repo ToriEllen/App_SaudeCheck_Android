@@ -8,6 +8,8 @@ export default function InicioScreen({ navigation }) {
 
       <Button title="Criar Conta" onPress={() => navigation.navigate("Cadastro")}/>
 
+         <Button title="Ir para Tela Principal" onPress={() => navigation.navigate("MainTabs", { screen: "Home" })}/>
+
     </View>
   )
 }
