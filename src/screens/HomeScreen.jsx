@@ -54,7 +54,7 @@ export default function HomeScreen({navigation}) {
               </Pressable>
 
                <Pressable
-                onPress={() => navigation.navigate("...")}
+                onPress={() => navigation.navigate("Notificacoes")}
                 style={({ pressed }) => [styles.card, pressed && styles.cardPressed]}
               >
                     <Ionicons name="notifications" size={38} color="#E8A020" />
@@ -76,12 +76,7 @@ export default function HomeScreen({navigation}) {
                 <View style={styles.mapBannerText}>
                   <Text style={styles.mapBannerTitle}>Unidades de Saúde</Text>
                   <Text style={styles.mapBannerSub}>Encontre a mais próxima</Text>
-                  {/* Mini map dots */}
-                 {/* <View style={styles.mapDots}>
-                    <View style={[styles.mapDot, { backgroundColor: COLORS.red }]} />
-                    <View style={[styles.mapDot, { backgroundColor: COLORS.green, marginTop: -6 }]} />
-                    <View style={[styles.mapDot, { backgroundColor: COLORS.orange }]} />
-                  </View>*/}
+                  
 
                   <View style={{ flexDirection: "row", marginTop: 10, gap: 10}}>
                     <View style={{ margin: 30 }}>

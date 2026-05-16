@@ -12,6 +12,7 @@ import MinhasAvaliacoesScreen from '../screens/MinhasAvaliacoesScreen'
 import NovaAvaliacaoScreen from '../screens/NovaAvaliacaoScreen'
 import PerfilScreen from '../screens/PerfilScreen'
 import UnidadesScreen from '../screens/UnidadesScreen';
+import NotificacoesScreen from '../screens/NotificacoesScreen';
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -62,6 +63,7 @@ export default function AppNavigator() {
   <Stack.Screen name="NovaAvaliacao" component={NovaAvaliacaoScreen} options={{ headerShown: false }} />
   <Stack.Screen name="Perfil" component={PerfilScreen} options={{ headerShown: false }} />
   <Stack.Screen name="Unidades" component={UnidadesScreen} options={{ headerShown: false }} />
+  <Stack.Screen name="Notificacoes" component={NotificacoesScreen} options={{ headerShown: false }} />
 </Stack.Navigator>
 
     </NavigationContainer>
