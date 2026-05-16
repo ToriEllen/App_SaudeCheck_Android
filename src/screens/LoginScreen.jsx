@@ -11,21 +11,23 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
-  Image,
 } from 'react-native';
-import { auth } from '../services/firebaseConfig';
+import auth from '@react-native-firebase/auth';
+import Svg, { Path } from 'react-native-svg';
 
-// 🎨 Paleta de Cores SaudeCheck
 const COLORS = {
-  primary: '#1B6B4A',
-  secondary: '#2A8A60',
-  softGreen: '#E8F5EE',
-  white: '#FFFFFF',
-  grayLight: '#F5F5F5',
-  grayBorder: '#E0E0E0',
-  grayText: '#333333',
-  grayPlaceholder: '#888888',
-  error: '#E53935',
+  primary:'#1B6B4A',
+  secondary:'#2A8A60',
+  softGreen:'#E8F5EE',
+  white:'#FFFFFF',
+  grayLight:'#F5F5F5',
+  grayBorder:'#E0E0E0',
+  grayText:'#333333',
+  grayPlaceholder:'#888888',
+  error:'#E53935',
+  YellowBox: '#E8A020',
+  gray:'#A8E6C8',
+
 };
 
 const LoginScreen = ({ navigation }) => {
@@ -33,12 +35,24 @@ const LoginScreen = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = async () => {
+      React.useLayoutEffect(() => {
+       navigation.setOptions({
+       headerShown:true,        
+       headerTitle:'Login',          
+       headerStyle:{
+       backgroundColor: COLORS.secondary,
+       },
+       headerTintColor:'#fff',
+       });
+       }, [navigation]);
+            
+
+const handleLogin = async () => {
     if (!email || !password) {
-      Alert.alert('Erro', 'Preencha todos os campos');
+      Alert.alert('Erro','Preencha todos os campos');
       return;
     }
-
+ 
     setLoading(true);
 
     try {
@@ -47,26 +61,27 @@ const LoginScreen = ({ navigation }) => {
     } catch (error) {
       setLoading(false);
 
-      let errorMessage = 'Erro ao fazer login. Tente novamente.';
+      let errorMessage ='Erro ao fazer login. Tente novamente.';
 
-      if (error.code === 'auth/user-not-found') {
+      if (error.code ==='auth/user-not-found') {
         errorMessage = 'Usuário não encontrado.';
-      } else if (error.code === 'auth/wrong-password') {
-        errorMessage = 'Senha incorreta.';
-      } else if (error.code === 'auth/invalid-email') {
-        errorMessage = 'E-mail inválido.';
-      } else if (error.code === 'auth/too-many-requests') {
+      } else if (error.code ==='auth/wrong-password') {
+        errorMessage ='Senha incorreta.';
+      } else if (error.code ==='auth/invalid-email') {
+        errorMessage ='E-mail inválido.';
+      } else if (error.code ==='auth/too-many-requests') {
         errorMessage = 'Muitas tentativas. Tente novamente mais tarde.';
-      } else if (error.code === 'auth/invalid-credential') {
-        errorMessage = 'E-mail ou senha incorretos.';
+      } else if (error.code ==='auth/invalid-credential') {
+        errorMessage ='E-mail ou senha incorretos.';
       }
 
       Alert.alert('Erro', errorMessage);
     }
   };
 
-  const handleForgotPassword = async () => {
-    if (!email) {
+const handleForgotPassword = async () => {
+      if (!email) {
+
       Alert.alert(
         'Recuperar Senha',
         'Digite seu e-mail no campo acima e tente novamente.'
@@ -76,111 +91,149 @@ const LoginScreen = ({ navigation }) => {
 
     try {
       await auth().sendPasswordResetEmail(email);
+
       Alert.alert(
         'E-mail enviado! ✉️',
         `Enviamos um link de recuperação para ${email}. Verifique sua caixa de entrada.`
       );
     } catch (error) {
+
       Alert.alert('Erro', 'Não foi possível enviar o e-mail. Verifique o endereço digitado.');
     }
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.container}
+  
+  <SafeAreaView style={styles.safeArea}>
+
+    <View style={styles.waveContainer}>
+      <Svg height="220" width="400" viewBox="0 0 400 220" style={{ position:'absolute', top:0, right:12 }}>
+     
+      <Path
+        d="M400 0 C300 0 280 80 200 80 C120 80 100 20 0 30 L0 0 Z"
+        fill="#A8E6C8"
+        opacity="0.9"
+      />
+      <Path
+        d="M400 0 C320 0 300 60 220 60 C140 60 120 10 0 20 L0 0 Z"
+        fill="#2A8A60"
+        opacity="0.9"
+      />
+      </Svg>
+    </View>
+
+
+    <View style={styles.waveBottomContainer}>
+      <Svg height="100" width="600" viewBox="0 0 400 50">
+      
+      <Path
+      d="M0 60 L0 30 Q40 10 100 20 Q200 40 300 15 Q360 5 400 20 L400 60 Z"
+      fill="#E8A020"
+      opacity="0.9"
+      />
+      <Path
+      d="M0 60 L0 40 Q30 20 70 30 Q130 45 190 30 Q250 15 300 28 Q360 40 400 30 L400 60 Z"
+      fill="#2A8A60"
+      opacity="0.9"
+      />
+      <Path
+      d="M0 60 L0 50 Q60 30 110 42 Q170 54 230 40 Q290 26 340 38 Q375 46 400 40 L400 60 Z"
+      fill="#1B6B4A"
+      opacity="0.9"
+      />
+      </Svg>
+    </View>
+
+  <KeyboardAvoidingView
+
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}
       >
-        <ScrollView
-          contentContainerStyle={styles.scrollContent}
-          keyboardShouldPersistTaps="handled"
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        keyboardShouldPersistTaps="handled"
         >
-          {/* Logo e Header */}
-          <View style={styles.header}>
-            <View style={styles.logoContainer}>
-              <Text style={styles.logoIcon}>🏥</Text>
-            </View>
-            <Text style={styles.title}>SaúdeCheck</Text>
-            <Text style={styles.subtitle}>
-              Fiscalize e avalie os serviços de saúde da sua cidade
-            </Text>
-          </View>
+      
+    <View style={styles.header}>
+           
+        <Text style={styles.title}>Bem-vindo!</Text>
+        <Text style={styles.subtitle}>
+          Acesse sua conta 
+        </Text>
+    </View>
 
-          {/* Formulário */}
-          <View style={styles.form}>
-            <Text style={styles.label}>E-mail</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="seu@email.com"
-              placeholderTextColor={COLORS.grayPlaceholder}
-              value={email}
-              onChangeText={setEmail}
-              keyboardType="email-address"
-              autoCapitalize="none"
-              autoComplete="email"
-            />
+    <View style={styles.form}>
+        
+        <Text style={styles.label}>E-mail</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Digite seu e-mail"
+          placeholderTextColor={COLORS.grayPlaceholder}
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
+          autoCapitalize="none"
+          autoComplete="email"
+        />
 
-            <Text style={styles.label}>Senha</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Digite sua senha"
-              placeholderTextColor={COLORS.grayPlaceholder}
-              value={password}
-              onChangeText={setPassword}
-              secureTextEntry
-              autoComplete="password"
-            />
+        <Text style={styles.label}>Senha</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Digite sua senha"
+          placeholderTextColor={COLORS.grayPlaceholder}
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+          autoComplete="password"
+        />
 
-            {/* Esqueci minha senha */}
-            <TouchableOpacity
-              onPress={handleForgotPassword}
-              style={styles.forgotContainer}
+        <TouchableOpacity
+           onPress={handleForgotPassword}
+           style={styles.forgotContainer}
             >
-              <Text style={styles.forgotText}>Esqueci minha senha</Text>
-            </TouchableOpacity>
+        <Text style={styles.forgotText}>Esqueci minha senha</Text>
+        </TouchableOpacity>
 
-            {/* Botão Entrar */}
-            <TouchableOpacity
-              style={[styles.button, loading && styles.buttonDisabled]}
-              onPress={handleLogin}
-              disabled={loading}
-              activeOpacity={0.8}
+        <TouchableOpacity
+           style={[styles.button, loading && styles.buttonDisabled]}
+           onPress={handleLogin}
+           disabled={loading}
+           activeOpacity={0.8}
             >
-              {loading ? (
-                <ActivityIndicator color={COLORS.white} size="small" />
-              ) : (
-                <Text style={styles.buttonText}>Entrar</Text>
+           {loading ? (
+        <ActivityIndicator color={COLORS.white} size="small" />
+             ) : (
+        <Text style={styles.buttonText}>Entrar</Text>
               )}
-            </TouchableOpacity>
-          </View>
+        </TouchableOpacity>
+    </View>
 
-          {/* Divisor */}
-          <View style={styles.dividerContainer}>
-            <View style={styles.dividerLine} />
-            <Text style={styles.dividerText}>ou</Text>
-            <View style={styles.dividerLine} />
-          </View>
+    <View style={styles.dividerContainer}>
+    <View style={styles.dividerLine} />
+    <Text style={styles.dividerText}>ou</Text>
+    <View style={styles.dividerLine} />
+    </View>
 
-          {/* Link para Cadastro */}
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Cadastro')}
-            style={styles.registerContainer}
-            activeOpacity={0.8}
-          >
-            <Text style={styles.registerText}>Não tem conta? </Text>
-            <Text style={styles.registerLink}>Criar conta grátis</Text>
-          </TouchableOpacity>
+        <TouchableOpacity
+           onPress={() => navigation.navigate('Cadastro')}
+           style={styles.registerContainer}
+           activeOpacity={0.8}
+           >
+        <Text style={styles.registerText}> Ainda Não tem conta? </Text>
+        <Text style={styles.registerLink}>Criar conta</Text>
+        </TouchableOpacity>
 
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+      </ScrollView>
+  </KeyboardAvoidingView>
+  </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  
   safeArea: {
     flex: 1,
-    backgroundColor: COLORS.white,
+    backgroundColor:COLORS.white,
   },
   container: {
     flex: 1,
@@ -188,24 +241,23 @@ const styles = StyleSheet.create({
   scrollContent: {
     flexGrow: 1,
     padding: 24,
-    justifyContent: 'center',
+    justifyContent:'flex-start',
   },
-
-  // Header / Logo
   header: {
-    alignItems: 'center',
+    alignItems:'center',
     marginBottom: 40,
+    marginTop: 90,
   },
   logoContainer: {
     width: 80,
     height: 80,
     borderRadius: 20,
     backgroundColor: COLORS.softGreen,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent:'center',
+    alignItems:'center',
     marginBottom: 16,
-    shadowColor: COLORS.primary,
-    shadowOffset: { width: 0, height: 4 },
+    shadowColor:COLORS.primary,
+    shadowOffset: {width: 0,height:4},
     shadowOpacity: 0.15,
     shadowRadius: 8,
     elevation: 4,
@@ -214,20 +266,19 @@ const styles = StyleSheet.create({
     fontSize: 40,
   },
   title: {
-    fontSize: 32,
+    fontSize: 38,
     fontWeight: '700',
     color: COLORS.primary,
     marginBottom: 8,
+    fontFamily: 'sans-serif-medium',
   },
   subtitle: {
-    fontSize: 15,
+    fontSize: 17,
     color: COLORS.grayPlaceholder,
     textAlign: 'center',
     lineHeight: 22,
     paddingHorizontal: 16,
   },
-
-  // Formulário
   form: {
     marginBottom: 24,
   },
@@ -255,17 +306,18 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   forgotContainer: {
-    alignSelf: 'flex-end',
+    alignSelf: 'center',
     marginBottom: 24,
     marginTop: -8,
   },
   forgotText: {
-    color: COLORS.secondary,
+    color: COLORS.primary,
     fontSize: 14,
     fontWeight: '500',
+    fontFamily: 'sans-serif',
   },
   button: {
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.secondary,
     borderRadius: 12,
     height: 56,
     justifyContent: 'center',
@@ -287,8 +339,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '600',
   },
-
-  // Divisor
   dividerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -304,8 +354,6 @@ const styles = StyleSheet.create({
     color: COLORS.grayPlaceholder,
     fontSize: 14,
   },
-
-  // Link de Cadastro
   registerContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -324,6 +372,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
+  waveBottomContainer: {
+  position: 'absolute',
+  bottom: 0,
+  left: -90,
+  right: 0,
+},
 });
-
 export default LoginScreen;
