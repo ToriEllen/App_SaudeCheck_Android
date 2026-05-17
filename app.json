@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "SaudeCheck",
-    "slug": "SaudeCheck",
+    "slug": "saudecheck",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -24,7 +24,10 @@
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
       "package": "com.anonymous.SaudeCheck",
-      "googleServicesFile": "./google-services.json"
+      "googleServicesFile": "./google-services.json",
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -34,6 +37,13 @@
         "@rnmapbox/maps",
         {
           "RNMapboxMapsDownloadToken": "RNMAPBOX_MAPS_DOWNLOAD_TOKEN"
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "O app precisa acessar suas fotos para adicionar avaliações.",
+          "cameraPermission": "O app precisa acessar a câmera para tirar fotos das avaliações."
         }
       ],
       "@react-native-firebase/app",
@@ -48,6 +58,12 @@
           }
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "2277645d-beba-41fa-be2b-72ca57c53177"
+      }
+    },
+    "owner": "saudecheck"
   }
 }

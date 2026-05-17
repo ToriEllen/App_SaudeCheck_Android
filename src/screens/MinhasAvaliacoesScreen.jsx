@@ -66,7 +66,7 @@ export default function MinhasAvaliacoesScreen({ navigation }) {
   return (
     <View style={styles.wrapper}>
       <ScrollView style={styles.container} contentContainerStyle={{ padding: 20 }}>
-        <Text style={styles.title}>Minhas Reclamações</Text>
+        <Text style={styles.title}>Minhas Avaliações</Text>
 
         {/* Filtros */}
         <View style={styles.filtros}>
